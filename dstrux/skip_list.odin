@@ -59,7 +59,7 @@ _skip_list_random_level :: proc(max_level: int) -> int {
 }
 
 // skip_list_insert adds a value to the skip list
-skip_list_insert :: proc(list: ^SkipList($T), value: T) where T: ordered {
+skip_list_insert :: proc(list: ^SkipList($T), value: T) {
     update := make([dynamic]^SkipListNode(T), list.max_level, context.temp_allocator)
     current := list.header
 
@@ -96,7 +96,7 @@ skip_list_insert :: proc(list: ^SkipList($T), value: T) where T: ordered {
 }
 
 // skip_list_search searches for a value in the skip list
-skip_list_search :: proc(list: ^SkipList($T), value: T) -> bool where T: ordered {
+skip_list_search :: proc(list: ^SkipList($T), value: T) -> bool {
     current := list.header
 
     for i := list.level; i >= 0; i -= 1 {
@@ -111,7 +111,7 @@ skip_list_search :: proc(list: ^SkipList($T), value: T) -> bool where T: ordered
 }
 
 // skip_list_remove removes a value from the skip list
-skip_list_remove :: proc(list: ^SkipList($T), value: T) -> bool where T: ordered {
+skip_list_remove :: proc(list: ^SkipList($T), value: T) -> bool {
     update := make([dynamic]^SkipListNode(T), list.max_level, context.temp_allocator)
     current := list.header
 

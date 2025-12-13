@@ -52,11 +52,11 @@ _btree_destroy_node :: proc(tree: ^BTree($T, $M), node: ^BTreeNode(T, M)) {
 }
 
 // btree_search searches for a value in the tree
-btree_search :: proc(tree: ^BTree($T, $M), value: T) -> bool where T: ordered {
+btree_search :: proc(tree: ^BTree($T, $M), value: T) -> bool {
     return _btree_search_node(tree.root, value)
 }
 
-_btree_search_node :: proc(node: ^BTreeNode($T, $M), value: T) -> bool where T: ordered {
+_btree_search_node :: proc(node: ^BTreeNode($T, $M), value: T) -> bool {
     if node == nil do return false
 
     i := 0
@@ -76,7 +76,7 @@ _btree_search_node :: proc(node: ^BTreeNode($T, $M), value: T) -> bool where T: 
 }
 
 // btree_insert adds a value to the tree
-btree_insert :: proc(tree: ^BTree($T, $M), value: T) where T: ordered {
+btree_insert :: proc(tree: ^BTree($T, $M), value: T) {
     root := tree.root
 
     if root.num_keys == M - 1 {
@@ -95,7 +95,7 @@ btree_insert :: proc(tree: ^BTree($T, $M), value: T) where T: ordered {
     tree.size += 1
 }
 
-_btree_insert_non_full :: proc(tree: ^BTree($T, $M), node: ^BTreeNode(T, M), value: T) where T: ordered {
+_btree_insert_non_full :: proc(tree: ^BTree($T, $M), node: ^BTreeNode(T, M), value: T) {
     i := node.num_keys - 1
 
     if node.is_leaf {

@@ -40,11 +40,11 @@ _bst_destroy_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T)) {
 }
 
 // bst_insert adds a value to the tree
-bst_insert :: proc(tree: ^BinarySearchTree($T), value: T) where T: ordered {
+bst_insert :: proc(tree: ^BinarySearchTree($T), value: T) {
     tree.root = _bst_insert_node(tree, tree.root, value)
 }
 
-_bst_insert_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T), value: T) -> ^BSTNode(T) where T: ordered {
+_bst_insert_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T), value: T) -> ^BSTNode(T) {
     if node == nil {
         new_node := new(BSTNode(T), tree.allocator)
         new_node.value = value
@@ -65,11 +65,11 @@ _bst_insert_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T), value: 
 }
 
 // bst_search searches for a value in the tree
-bst_search :: proc(tree: ^BinarySearchTree($T), value: T) -> bool where T: ordered {
+bst_search :: proc(tree: ^BinarySearchTree($T), value: T) -> bool {
     return _bst_search_node(tree.root, value)
 }
 
-_bst_search_node :: proc(node: ^BSTNode($T), value: T) -> bool where T: ordered {
+_bst_search_node :: proc(node: ^BSTNode($T), value: T) -> bool {
     if node == nil do return false
 
     if value == node.value {
@@ -82,13 +82,13 @@ _bst_search_node :: proc(node: ^BSTNode($T), value: T) -> bool where T: ordered 
 }
 
 // bst_remove removes a value from the tree
-bst_remove :: proc(tree: ^BinarySearchTree($T), value: T) -> bool where T: ordered {
+bst_remove :: proc(tree: ^BinarySearchTree($T), value: T) -> bool {
     old_size := tree.size
     tree.root = _bst_remove_node(tree, tree.root, value)
     return tree.size < old_size
 }
 
-_bst_remove_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T), value: T) -> ^BSTNode(T) where T: ordered {
+_bst_remove_node :: proc(tree: ^BinarySearchTree($T), node: ^BSTNode(T), value: T) -> ^BSTNode(T) {
     if node == nil do return nil
 
     if value < node.value {

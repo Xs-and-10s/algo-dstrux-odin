@@ -41,7 +41,7 @@ hashmap_open_hash :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> int {
 }
 
 // hashmap_open_insert inserts or updates a key-value pair
-hashmap_open_insert :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K, value: V) where K: comparable {
+hashmap_open_insert :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K, value: V) {
     // Rehash if load factor exceeds 0.7
     load_factor := f32(hm.size) / f32(hm.capacity)
     if load_factor > 0.7 {
@@ -81,7 +81,7 @@ hashmap_open_insert :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K, value: V
 }
 
 // hashmap_open_get retrieves the value for a key
-hashmap_open_get :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> (V, bool) where K: comparable {
+hashmap_open_get :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> (V, bool) {
     index := hashmap_open_hash(hm, key)
     original_index := index
 
@@ -109,7 +109,7 @@ hashmap_open_get :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> (V, bool
 }
 
 // hashmap_open_remove removes a key-value pair
-hashmap_open_remove :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> bool where K: comparable {
+hashmap_open_remove :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> bool {
     index := hashmap_open_hash(hm, key)
     original_index := index
 
@@ -139,7 +139,7 @@ hashmap_open_remove :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> bool 
 }
 
 // hashmap_open_contains checks if a key exists
-hashmap_open_contains :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> bool where K: comparable {
+hashmap_open_contains :: proc(hm: ^HashMapOpenAddressing($K, $V), key: K) -> bool {
     _, ok := hashmap_open_get(hm, key)
     return ok
 }
@@ -155,7 +155,7 @@ hashmap_open_is_empty :: proc(hm: ^HashMapOpenAddressing($K, $V)) -> bool {
 }
 
 // hashmap_open_rehash resizes and rehashes the map
-hashmap_open_rehash :: proc(hm: ^HashMapOpenAddressing($K, $V)) where K: comparable {
+hashmap_open_rehash :: proc(hm: ^HashMapOpenAddressing($K, $V)) {
     old_entries := hm.entries
     old_capacity := hm.capacity
 

@@ -30,7 +30,7 @@ binary_heap_destroy :: proc(heap: ^BinaryHeap($T)) {
 }
 
 // binary_heap_compare compares two values based on heap type
-_binary_heap_compare :: proc(heap: ^BinaryHeap($T), a, b: T) -> bool where T: ordered {
+_binary_heap_compare :: proc(heap: ^BinaryHeap($T), a, b: T) -> bool {
     if heap.heap_type == .Min {
         return a < b
     } else {
@@ -39,13 +39,13 @@ _binary_heap_compare :: proc(heap: ^BinaryHeap($T), a, b: T) -> bool where T: or
 }
 
 // binary_heap_push adds an element to the heap
-binary_heap_push :: proc(heap: ^BinaryHeap($T), value: T) where T: ordered {
+binary_heap_push :: proc(heap: ^BinaryHeap($T), value: T) {
     append(&heap.data, value)
     _binary_heap_sift_up(heap, len(heap.data) - 1)
 }
 
 // binary_heap_pop removes and returns the top element
-binary_heap_pop :: proc(heap: ^BinaryHeap($T)) -> (T, bool) where T: ordered {
+binary_heap_pop :: proc(heap: ^BinaryHeap($T)) -> (T, bool) {
     if len(heap.data) == 0 {
         return {}, false
     }
@@ -80,7 +80,7 @@ binary_heap_is_empty :: proc(heap: ^BinaryHeap($T)) -> bool {
 }
 
 // _binary_heap_sift_up moves an element up to maintain heap property
-_binary_heap_sift_up :: proc(heap: ^BinaryHeap($T), index: int) where T: ordered {
+_binary_heap_sift_up :: proc(heap: ^BinaryHeap($T), index: int) {
     idx := index
     for idx > 0 {
         parent := (idx - 1) / 2
@@ -94,7 +94,7 @@ _binary_heap_sift_up :: proc(heap: ^BinaryHeap($T), index: int) where T: ordered
 }
 
 // _binary_heap_sift_down moves an element down to maintain heap property
-_binary_heap_sift_down :: proc(heap: ^BinaryHeap($T), index: int) where T: ordered {
+_binary_heap_sift_down :: proc(heap: ^BinaryHeap($T), index: int) {
     idx := index
     n := len(heap.data)
 
